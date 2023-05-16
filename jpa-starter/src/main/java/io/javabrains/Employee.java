@@ -13,6 +13,12 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType employeeType;
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    //-This will allow Hibernate to save the AccessCard instance when the Employee instance is saved,
+    // avoiding the TransientPropertyValueException.
+    // FetchType.LAZY will only fetch the data when access card's getter is called from employee instance
+    private AccessCard accessCard;
+
     public int getId() {
         return id;
     }
@@ -25,7 +31,6 @@ public class Employee {
         return name;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
@@ -36,6 +41,14 @@ public class Employee {
 
     public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
+    }
+
+    public AccessCard getAccessCard() {
+        return accessCard;
+    }
+
+    public void setAccessCard(AccessCard accessCard) {
+        this.accessCard = accessCard;
     }
 
     @Override
